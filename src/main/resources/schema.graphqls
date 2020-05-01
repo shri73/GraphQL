@@ -1,0 +1,61 @@
+type Student {
+  studentNumber: String!
+  firstName: String!
+  lastName: String!
+  year: String
+  email: String!
+  courses: [Course!]
+}
+
+type Course {
+  courseName: String!
+  courseNumber: String!
+  credits: Int!
+  semesterOffered: String
+  students : [Student!]
+}
+
+
+input CourseInput {
+  courseName: String!
+  courseNumber: String!
+  credits: Int!
+  semesterOffered: String
+}
+
+input StudentInput {
+  studentNumber: String!
+  firstName: String!
+  lastName: String!
+  year: String
+  email: String!
+}
+
+type Query {
+  # Find a course based on course name
+  findByCourseName(courseName: String!): Course
+  
+  # Find a course based on course number
+  findByCourseNumber(courseNumber: String!): Course
+  
+  # Find a course based on semester offered
+  findBySemesterOffered(semesterOffered: String!): [Course!]
+  
+  # Find a student based on student number
+  findByStudentNumber(studentNumber: String!): Student
+  
+  # Find a student based on first name
+  findByFirstName(firstName: String!): [Student]
+}
+
+type Mutation {
+  # Add a new Course
+  newCourse(courseName: String!, courseNumber: String!, credits: Int!, semesterOffered: String!) : Course
+  
+  # Add a new Student
+  newStudent(student: StudentInput!) : Student
+  
+  # Add a Course to Student
+  addCourseToStudent(courseNumber: String!, studentNumber: String!) : Student
+}
+
